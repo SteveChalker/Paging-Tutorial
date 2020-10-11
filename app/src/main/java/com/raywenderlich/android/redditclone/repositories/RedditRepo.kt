@@ -35,7 +35,27 @@
 package com.raywenderlich.android.redditclone.repositories
 
 import android.content.Context
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import com.raywenderlich.android.redditclone.models.RedditPost
+import com.raywenderlich.android.redditclone.networking.RedditClient
+import com.raywenderlich.android.redditclone.networking.RedditService
+import kotlinx.coroutines.flow.Flow
 
 class RedditRepo(context: Context) {
+    // 1
+    private val redditService = RedditClient.getClient().create(RedditService::class.java)
+
+    // 2
+    fun fetchPosts(): Flow<PagingData<RedditPost>> {
+        // 3
+        return Pager(
+            PagingConfig(pageSize = 40, enablePlaceholders = false)
+        ) {
+            RedditPagingSource(redditService)
+        }.flow
+    }
+
 
 }
