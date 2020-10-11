@@ -38,6 +38,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.raywenderlich.android.redditclone.database.dao.RedditKeysDao
+import com.raywenderlich.android.redditclone.database.dao.RedditPostsDao
 import com.raywenderlich.android.redditclone.models.RedditKeys
 import com.raywenderlich.android.redditclone.models.RedditPost
 
@@ -54,4 +56,9 @@ abstract class RedditDatabase : RoomDatabase() {
             return databaseBuilder.build()
         }
     }
+
+    abstract fun redditPostsDao(): RedditPostsDao
+    abstract fun redditKeysDao(): RedditKeysDao
+
+
 }
