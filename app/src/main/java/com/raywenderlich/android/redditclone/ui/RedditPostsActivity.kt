@@ -62,6 +62,12 @@ class RedditPostsActivity : AppCompatActivity() {
 
     private fun setupViews() {
         rvPosts.adapter = redditAdapter
+
+        rvPosts.adapter = redditAdapter.withLoadStateHeaderAndFooter(
+            header = RedditLoadingAdapter { redditAdapter.retry() },
+            footer = RedditLoadingAdapter { redditAdapter.retry() }
+        )
+
     }
 
     private fun fetchPosts() {
